@@ -65,6 +65,32 @@ public class NeighborhoodLibraryBlueprint {
     public void setCheckedOutTo(String checkedOutTo) {
         this.checkedOutTo = checkedOutTo;
     }
-
+//    public class Book {
+//        private int id;
+//        private String isbn;
+//        private String title;
+//        private boolean isCheckedOut;
+//        private String checkedOutTo;
+//
+//        public Book(int id, String isbn, String title) {
+//            this.id = id;
+//            this.isbn = isbn;
+//            this.title = title;
+//            this.isCheckedOut = false;
+//            this.checkedOutTo = "";
+//        }
+//
+//        public void checkOut(String name) {
+//            isCheckedOut = true;
+//            checkedOutTo = name;
+//        }
+//
+//        public void checkIn() {
+//            isCheckedOut = false;
+//            checkedOutTo = "";
+//        }
+//
+//        // Getters and Setters here...
+//    }
 
 }
