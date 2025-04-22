@@ -1,7 +1,8 @@
 package com.pluralsight;
 
 public class NeighborhoodLibraryBlueprint {
-
+// Declare the attributes or feature of  the library .
+//It's private so that we can protect our information
     private int id;
     private String isbn;
     private String title;
@@ -14,20 +15,22 @@ public class NeighborhoodLibraryBlueprint {
         this.id = id;
         this.isbn = isbn;
         this.title = title;
-        this.isCheckedOut = true;
+        this.isCheckedOut = false;
         this.checkedOutTo = "";
     }
 //Create a method for checkOut and CheckIn
-    public String checkedOut(String name){
-        return name;
+    public void checkedOut(String name){
+        this.isCheckedOut = true;
+        this.checkedOutTo = name;
     }
-//    public void String checkIn(){
-//        System.out.println();
-//    }
+    public void checkIn(){
+    this.isCheckedOut = false;
+    this.checkedOutTo = "";
+    }
 
     //    Generate getter and setter for the attribute of this class
     public int getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(int id) {
@@ -35,7 +38,7 @@ public class NeighborhoodLibraryBlueprint {
     }
 
     public String getIsbn() {
-        return isbn;
+        return this.isbn;
     }
 
     public void setIsbn(String isbn) {
@@ -43,7 +46,7 @@ public class NeighborhoodLibraryBlueprint {
     }
 
     public String getTitle() {
-        return title;
+        return this.title;
     }
 
     public void setTitle(String title) {
@@ -51,7 +54,7 @@ public class NeighborhoodLibraryBlueprint {
     }
 
     public boolean isCheckedOut() {
-        return isCheckedOut;
+        return this.isCheckedOut;
     }
 
     public void setCheckedOut(boolean checkedOut) {
@@ -59,38 +62,10 @@ public class NeighborhoodLibraryBlueprint {
     }
 
     public String getCheckedOutTo() {
-        return checkedOutTo;
+        return this.checkedOutTo;
     }
 
     public void setCheckedOutTo(String checkedOutTo) {
         this.checkedOutTo = checkedOutTo;
     }
-//    public class Book {
-//        private int id;
-//        private String isbn;
-//        private String title;
-//        private boolean isCheckedOut;
-//        private String checkedOutTo;
-//
-//        public Book(int id, String isbn, String title) {
-//            this.id = id;
-//            this.isbn = isbn;
-//            this.title = title;
-//            this.isCheckedOut = false;
-//            this.checkedOutTo = "";
-//        }
-//
-//        public void checkOut(String name) {
-//            isCheckedOut = true;
-//            checkedOutTo = name;
-//        }
-//
-//        public void checkIn() {
-//            isCheckedOut = false;
-//            checkedOutTo = "";
-//        }
-//
-//        // Getters and Setters here...
-//    }
-
 }
