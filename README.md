@@ -32,18 +32,7 @@ Command Line / GitBash
 IntelliJ IDEA
 
 ##Directory Structure
-css
-Copy
-Edit
-neighborhood-library/
-├── .gitignore
-├── README.md
-├── Book.java
-├── Main.java
-Screenshots
-Initial Book Inventory
 
-Checkout and Check-in Flow
 
 ##How to Run
 Clone the repository:
@@ -68,4 +57,4 @@ Designed and planned using notes prior to coding.
 ##Author
 Bilenie Tilahun
 GitHub: https://github.com/your-username
-Location: Richardson, TX
+Location: Garland, TX
