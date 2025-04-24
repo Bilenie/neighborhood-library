@@ -1,34 +1,44 @@
 package com.pluralsight;
 
 public class NeighborhoodLibraryBlueprint {
-// Declare the attributes or feature of  the library .
-//It's private so that we can protect our information
+    // Declare the attributes or feature of  the library .
+   //It's private so that we can protect our information
     private int id;
     private String isbn;
     private String title;
     private boolean isCheckedOut;
     private String checkedOutTo;
 
-//Generate a constructor to set the requirement or initialize the attribute/variables.
+   //Generate a constructor to set the requirement or initialize the attribute/variables.
+    public NeighborhoodLibraryBlueprint(int id, String isbn, String title) {
 
-    public NeighborhoodLibraryBlueprint(int id, String isbn, String title, boolean isCheckedOut, String checkedOutTo) {
+        //Take out boolean isCheckedOut, String checkedOutTo from the parameter
         this.id = id;
         this.isbn = isbn;
         this.title = title;
+
         this.isCheckedOut = false;
         this.checkedOutTo = "";
     }
-//Create a method for checkOut and CheckIn
-    public void checkedOut(String name){
-        this.isCheckedOut = true;
-        this.checkedOutTo = name;
-    }
-    public void checkIn(){
-    this.isCheckedOut = false;
-    this.checkedOutTo = "";
+
+    //Create a method for checkOut and CheckIn
+    public void checkedOut(String name) {
+
+        this.setCheckedOut(true);
+        this.setCheckedOutTo(name);
+        //this.isCheckedOut = true;
+        //this.checkedOutTo = name;
     }
 
-    //    Generate getter and setter for the attribute of this class
+    public void checkIn() {
+
+        this.setCheckedOut(false);
+        this.setCheckedOutTo("");
+        //this.isCheckedOut = false;
+        //this.checkedOutTo = "";
+    }
+
+    //Generate getter and setter for the attribute of this class
     public int getId() {
         return this.id;
     }
