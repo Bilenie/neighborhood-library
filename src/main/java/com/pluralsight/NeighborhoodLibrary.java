@@ -33,11 +33,11 @@ public class NeighborhoodLibrary {
 
     //Create a main method
     public static void main(String[] args) {
+
+        //we invoke the method created to display all the question for the users
         while (true) {
-
-            //we invoke the method created to display all the question for the users
-            String actualChoice = homeScreenDisplay();
-
+            homeScreenDisplay();
+            String actualChoice = myScanner.nextLine();
             //Based on the response from the user we create a statement for every choice.
 
             //If user chooses (A)
@@ -52,61 +52,57 @@ public class NeighborhoodLibrary {
             //If user choose (C) exit from the Library
             else if (actualChoice.equalsIgnoreCase("C")) {
                 System.out.println("Goodbye!");
-                return;
+                System.exit(0);  // Properly exit the program
             } else {
                 System.out.println("Invalid option. Try again.");
+                continue;
             }
         }
+
     }
 
     //Create a method for viewing available books.This displays the welcome message and menu
 
-    static String homeScreenDisplay() {
-
+    public static void homeScreenDisplay() {
         System.out.println("Welcome to Bilenie’s Library App !!!");
         System.out.print("What would you like to do?  Select A,B,or C.\n");
         System.out.print("A)Available Book\n");
         System.out.print("B)Checked out Books \n");
         System.out.print("C)Exit the Library\n");
-
-        return myScanner.nextLine(); // Return user's menu choice
     }
 
     // This method shows all books that are available (not checked out)
-    static void showAvailableBooks() {
-        System.out.println("\n Available Books:");
-        for (int i = 0; i < books.length; i++) {
-            if (!books[i].isCheckedOut()) {
-                System.out.println("ID: " + books[i].getId() + ", ISBN: " + books[i].getIsbn() + ", Title: " + books[i].getTitle());
-            }
-        }
-
-        // Ask user if they want to check out a book
-
-        System.out.println("\nWould you like to check out a book? (Y/N)");
-        String answer = myScanner.nextLine(); // get user's yes/no input and store it in a variable.
-
-        // If user says yes
-
-        if (answer.equalsIgnoreCase("Y")) {
-            System.out.print("Enter the ID of the book you want to check out: \n");
-            int bookId = myScanner.nextInt();
-
-
-            myScanner.nextLine(); // clear buffer
-
-            System.out.print("Enter your name: ");
-            String name = myScanner.nextLine();
-
+    public static void showAvailableBooks() {
+        try {
+            System.out.println("\n Available Books:");
             for (int i = 0; i < books.length; i++) {
-                if (books[i].getId() == bookId && !books[i].isCheckedOut()) {
-                    books[i].checkedOut(name);
-                    System.out.println(books[i].getTitle() + " checked out to " + name);
-                    return;
+                if (!books[i].isCheckedOut()) {
+                    System.out.println("ID: " + books[i].getId() + ", ISBN: " + books[i].getIsbn() + ", Title: " + books[i].getTitle());
+                }
+            }
+            // Ask user if they want to check out a book
+            System.out.println("\nWould you like to check out a book?\n Y) to Check out \n N) to exit )");
+
+            String answer = myScanner.nextLine(); // get user's yes/no input and store it in a variable.
+
+            // If user says yes
+            if (answer.equalsIgnoreCase("Y")) {
+                System.out.print("Enter the ID of the book you want to check out: \n");
+                int bookId = Integer.parseInt(myScanner.nextLine()); // safer than nextInt()
+
+                for (int i = 0; i < books.length; i++) {
+                    if (books[i].getId() == bookId) {
+                        System.out.print("Enter your name: ");
+                        String name = myScanner.nextLine();
+                        System.out.println(books[i].getTitle() + " checked out to " + name);
+                    } else if (books[i].getId() != bookId) {
+                        System.out.println(" Book not available or ID not found.");
+                    }
                 }
             }
 
-            System.out.println(" Book not available or ID not found.");
+        } catch (Exception e) {
+            System.out.println("Error found" + e.getMessage());
         }
     }
 
@@ -114,29 +110,41 @@ public class NeighborhoodLibrary {
     static void showCheckedOutBooks() {
         try {
             System.out.println("\nChecked Out Books:");
+            boolean anyCheckedOut = false;
             for (int i = 0; i < books.length; i++) {
                 if (books[i].isCheckedOut()) {
                     System.out.println("ID: " + books[i].getId() + ", ISBN: " + books[i].getIsbn() + ", Title: " + books[i].getTitle() +
                             ", Checked Out To: " + books[i].getCheckedOutTo());
+                    anyCheckedOut = true;
                 }
             }
-            System.out.println("\nPress C to check in a book or X to go back:");
+
+            if (!anyCheckedOut) {
+                System.out.println("No books are currently checked out.");
+            }
+
+            System.out.println("\nPress C to check in a book or\n X to go back:");
             String input = myScanner.nextLine();
 
             if (input.equalsIgnoreCase("C")) {
                 System.out.print("Enter the ID of the book to check in: ");
-                int bookId = myScanner.nextInt();
-                myScanner.nextLine(); // clear buffer
 
+                int searchBookId = myScanner.nextInt();
+
+                myScanner.nextLine(); // clear buffer
+                boolean found = false;
                 for (int i = 0; i < books.length; i++) {
-                    if (books[i].getId() == bookId && books[i].isCheckedOut()) {
+                    if (books[i].getId() == searchBookId) {
                         books[i].checkIn();
-                        System.out.println("Book checked in.");
-                        return;
+                        System.out.println(books[i].getTitle() + "Book checked in successfully.");
+                        found = true;
+                        break;
+                    } else {
+                        System.out.println(" Book not found or not currently checked out.");//I need to fix this because its in a repetition.
                     }
                 }
+            } else if (input.equalsIgnoreCase("X")) {
 
-                System.out.println(" Book not found or not currently checked out.");
             }
         } catch (Exception e) {
             System.out.println("Error Occur!!!" + e.getMessage());
@@ -145,20 +153,3 @@ public class NeighborhoodLibrary {
     }
 
 }
-
-//****************************************************************************
-
-//we are going to use for loop  to go through each item/books i=0 , i<books.length,i++
-//-1 will not be found but if we put 0 it will return the first book
-// return -1;
-//we are going to wrap everything in the while loop because we want it to keep asking
-//based on the answer make a case so we use switch(fancy if statement ).
-//        switch (actualChoice) {
-//            case "A":
-//
-//
-//        }
-//  NeighborhoodLibrary[] library = new NeighborhoodLibrary[carCount];
-
-//*****************************************************************************
-
